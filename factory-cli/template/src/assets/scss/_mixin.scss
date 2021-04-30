@@ -1,0 +1,7 @@
+@function set_color($color1, $color2, $ratio) {
+  @if($color2){
+    @return $color1 * $ratio + $color2 * (1 - $ratio);
+  }@else {
+    @return $color2;
+  }
+}

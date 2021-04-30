@@ -1,0 +1,85 @@
+.k-box-card {
+  box-shadow: 3px 3px 4px 0 rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  border: 1px solid rgba(171, 171, 171, 0.5);
+  padding: 12px 16px 6px 16px !important;
+  margin-bottom: 10px;
+  &-title {
+    h3 {
+      line-height: 32px;
+      font-size: 14px !important;
+      font-weight: 600;
+      float: left;
+      .title-icon {
+        float: left;
+        width: 4px;
+        height: 12px;
+        background: $--color-primary;
+        border-radius: 2px;
+        margin-top: 10px;
+        margin-right: 5px;
+      }
+    }
+  }
+  &-show-hidden {
+    margin-top: 8px;
+    height: 12px;
+    span {
+      line-height: 12px;
+      cursor: pointer;
+      font-size: 12px;
+      float: right;
+      color: $--color-primary;
+    }
+  }
+}
+.k-card{
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid rgba(232, 232, 232, 1);
+  border-radius: 4px;
+  box-shadow: 3px 3px 5px 0 rgba(0, 0, 0, 0.09);
+  &_title {
+    display: inline-flex;
+    flex-direction: row;
+    justify-content: space-between;
+    height: 40px;
+    padding-left: 10px;
+    color: white;
+    line-height: 40px;
+    background: $--color-primary;
+  }
+}
+.org-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 500px;
+  overflow: hidden;
+  border: 1px solid rgba(232, 232, 232, 1);
+  border-radius: 4px;
+  box-shadow: 3px 3px 5px 0 rgba(0, 0, 0, 0.09);
+
+  .org-card_title {
+    height: 40px;
+    padding-left: 10px;
+    color: white;
+    line-height: 40px;
+    background: $--color-primary;
+  }
+
+  .filter-input {
+    padding: 6px 10px;
+  }
+
+  .tree-main {
+    flex: 1;
+    overflow-y: scroll;
+  }
+  .detail-main {
+    padding: 16px 10px 0 10px;
+    overflow-y: scroll;
+  }
+}

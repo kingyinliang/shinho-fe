@@ -1,0 +1,10 @@
+#! /usr/bin/env node
+const program = require('commander')
+
+console.log('factory-cli version:' + require('../package').version)
+
+program
+  .version(require('../package').version, '-v, --version')
+  .usage('<command> [options]')
+  .command('init [name]', 'init a project')
+  .parse(process.argv)
