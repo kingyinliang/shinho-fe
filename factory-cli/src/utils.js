@@ -1,6 +1,8 @@
 const fs = require('fs')
 const INJECT_FILES = [
     'nginx/default.conf',
+    'src/project/TEMPLATE/router.ts',
+    'src/utils/SSOLogin.ts',
     'package.json',
     'vue.config.js',
     'README.md',

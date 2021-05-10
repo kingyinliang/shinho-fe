@@ -1,6 +1,7 @@
 import axios, { AxiosInstance, AxiosResponse } from 'axios'
 import { ElNotification, ElLoading } from 'element-plus'
 import VueCookies from '@/components/cookie/vue-cookies'
+import SSOLogin from '@/utils/SSOLogin'
 
 enum HttpCode {
   SUCCESS = 200,
@@ -62,7 +63,7 @@ export class HttpManager {
         return Promise.resolve(res)
       } else if (res.data.code === HttpCode.EXPIRED_TOKEN) {
         this.tryHideFullScreenLoading() // 关闭遮罩
-        window.location.href = process.env.VUE_APP_HOST as string
+        SSOLogin.expiredToken(res.data)
         return Promise.reject(res)
       } else if (res.data.code === HttpCode.WARNING) {
         ElNotification({ title: '警告', message: res.data.msg, type: 'warning' })

@@ -13,7 +13,7 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
-    "@shinho-fe/ssologin": "^1.0.2",
+    "@shinho-fe/ssologin": "^1.0.3",
     "axios": "^0.21.1",
     "core-js": "^3.6.5",
     "element-plus": "^1.0.2-beta.36",

@@ -102,13 +102,13 @@ class Project {
             })
         })
 
-        // 重命名文件
-        fse.renameSync(path.join(projectName, 'src/project/TEMPLATE'), path.join(projectName, `src/project/${projectName}`))
-
         this.memFsEditor.commit(() => {
             INJECT_FILES.forEach((file) => {
                 console.log(`${chalk.green('✔ ')}${chalk.grey(`模板替换: ${projectName}/${file}`)}`);
             })
+
+            // 重命名文件
+            fse.renameSync(path.join(projectName, 'src/project/TEMPLATE'), path.join(projectName, `src/project/${projectName}`))
 
             process.chdir(projectPath)
 
