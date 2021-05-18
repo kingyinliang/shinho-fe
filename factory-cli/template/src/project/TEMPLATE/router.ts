@@ -1,7 +1,8 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 import { GET_NAV_API } from '@/api/api/index'
-import { fnAddDynamicMenuRoutes } from '@/utils/index'
+import { fnAddDynamicMenuRoutes, MenuList } from '@/utils/index'
 
+const globalMenu: Array<MenuList> = []
 const globalRoutes: Array<RouteRecordRaw> = []
 
 const mainRouter: RouteRecordRaw = {
@@ -49,8 +50,8 @@ router.beforeEach((to, from, next) => {
       factory: 'mss_fake_factory',
       tenant: '<%= projectName %>'
     }).then(({ data }) => {
-      fnAddDynamicMenuRoutes(data.data.menuList, [], router, mainRouter)
-      sessionStorage.setItem('menuList', JSON.stringify(data.data.menuList || []))
+      fnAddDynamicMenuRoutes(globalMenu.concat(data.data.menuList || []), [], router, mainRouter)
+      sessionStorage.setItem('menuList', JSON.stringify(globalMenu.concat(data.data.menuList || [])))
       sessionStorage.setItem('permissions', JSON.stringify(data.data.permissions || '[]'))
       isAddDynamicMenuRoutes = true
       return next(Object.assign({}, to, { replace: true }))

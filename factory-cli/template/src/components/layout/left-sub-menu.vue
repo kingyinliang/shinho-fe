@@ -9,7 +9,9 @@
   <div v-else-if="menu.menuType !== 'P'">
     <el-menu-item :index="String(menu.id)" @click="gotoRouteHandle(menu)">
       <em :class="menu.menuIcon || ''" class="iconfont" />
-      <span>{{ menu.menuName }}</span>
+      <template #title>
+        <span>{{ menu.menuName }}</span>
+      </template>
     </el-menu-item>
   </div>
 </template>
