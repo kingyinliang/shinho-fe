@@ -47,12 +47,13 @@ class SSOLogin {
         }
         this.Axios = axios.create({
             baseURL: this.option.host,
-            timeout: 30000
+            timeout: 30000,
+            withCredentials: true
         })
         this.Axios.interceptors.request.use(config => {
-            if (VueCookies.get('token')) {
-                config.headers.Authorization = VueCookies.get('token')
-            }
+            // if (VueCookies.get('token')) {
+            //     config.headers.Authorization = VueCookies.get('token')
+            // }
             return config
         }, error => Promise.reject(error))
         this.Axios.interceptors.response.use(res => {
@@ -65,14 +66,13 @@ class SSOLogin {
     }
 
     async getUserInfo(): Promise<AxiosResponse> {
-        const tmp = this.Axios.post('/sysUser/login', {
-            accessToken: VueCookies.get('token'),
+        return this.Axios.post('/sysUser/login', {
             tenant: this.option.tenant
+        }).then((data) => {
+            // 存给当前token
+            VueCookies.set('token', data.data.data.token)
+            return data
         })
-        tmp.then(res => {
-            this.syncToken(res.data.data.id)
-        })
-        return tmp
     }
 
     async logout(): Promise<AxiosResponse> {
@@ -89,15 +89,16 @@ class SSOLogin {
         } else {
             params += window.location.href
         }
-        if (this.option.NODE_ENV !== 'production') {
-            const url = res.data
-            const pos = url.indexOf('://')
-            const root = url.substring(pos, url.length)
-            const resUrl = 'http' + root
-            window.location.href = resUrl + params
-        } else {
-            window.location.href = res.data + params
-        }
+        // if (this.option.NODE_ENV !== 'production') {
+        //     const url = res.data
+        //     const pos = url.indexOf('://')
+        //     const root = url.substring(pos, url.length)
+        //     const resUrl = 'http' + root
+        //     window.location.href = resUrl + params
+        // } else {
+        //     window.location.href = res.data + params
+        // }
+        window.location.href = res.data + params
     }
 
     syncToken(id: string) {
