@@ -1,6 +1,6 @@
 {
   "name": "@shinho-fe/ssologin",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "shinho ssologin",
   "main": "lib/SSOLogin.min.js",
   "scripts": {
