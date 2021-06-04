@@ -15,7 +15,6 @@ import TopBar from './top-bar.vue'
 import LeftBar from './left-bar.vue'
 import MainContent from './main_content.vue'
 import layoutTs from '@/components/layout/layoutTs'
-import SSOLogin from '@/utils/SSOLogin'
 
 interface SystemColorType{
   scssVar: string
@@ -29,11 +28,7 @@ export default defineComponent({
     MainContent
   },
   created () {
-    SSOLogin.getUserInfo().then(() => {
-      this.userInfo = JSON.parse(sessionStorage.getItem('userInfo') || '{}')
-      this.menuList = JSON.parse(sessionStorage.getItem('menuList') || '[]')
-      this.dynamicMenuRoutes = JSON.parse(sessionStorage.getItem('dynamicMenuRoutes') || '[]')
-    })
+    this.dynamicMenuRoutes = JSON.parse(sessionStorage.getItem('dynamicMenuRoutes') || '[]')
   },
   setup () {
     const { userInfo, menuList, routeHandle, dynamicMenuRoutes } = layoutTs()

@@ -7,6 +7,14 @@ vi /etc/hosts
 ```shell
 127.0.0.1 kingyinlaing.shinho.net.cn
 ```
+chrome90下版本解决本地开发跨域带cookie问题，列如http请求https
+```shell script
+chrome://flags/#same-site-by-default-cookies
+
+chrome://flags/#cookies-without-same-site-must-be-secure
+```
+这两项设置为Disabled，并重启浏览器
+
 然后，访问：http://kingyinlaing.shinho.net.cn:8080/
 
 ### 使用方法

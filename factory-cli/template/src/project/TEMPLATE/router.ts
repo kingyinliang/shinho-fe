@@ -1,6 +1,8 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 import { GET_NAV_API } from '@/api/api/index'
 import { fnAddDynamicMenuRoutes, MenuList } from '@/utils/index'
+import store from './store'
+import SSOLogin from '@/utils/SSOLogin'
 
 const globalMenu: Array<MenuList> = []
 const globalRoutes: Array<RouteRecordRaw> = []
@@ -46,15 +48,18 @@ router.beforeEach((to, from, next) => {
   if (isAddDynamicMenuRoutes) {
     return next()
   } else {
-    GET_NAV_API({
-      factory: 'mss_fake_factory',
-      tenant: '<%= projectName %>'
-    }).then(({ data }) => {
-      fnAddDynamicMenuRoutes(globalMenu.concat(data.data.menuList || []), [], router, mainRouter)
-      sessionStorage.setItem('menuList', JSON.stringify(globalMenu.concat(data.data.menuList || [])))
-      sessionStorage.setItem('permissions', JSON.stringify(data.data.permissions || '[]'))
-      isAddDynamicMenuRoutes = true
-      return next(Object.assign({}, to, { replace: true }))
+    SSOLogin.getUserInfo().then(({ data }) => {
+      store.commit('common/updateUserInfo', data.data)
+      GET_NAV_API({
+        factory: 'mss_fake_factory',
+        tenant: '<%= projectName %>'
+      }).then(({data}) => {
+        fnAddDynamicMenuRoutes(globalMenu.concat(data.data.menuList || []), [], router, mainRouter)
+        store.commit('common/updateMenuList', globalMenu.concat(data.data.menuList || []))
+        sessionStorage.setItem('permissions', JSON.stringify(data.data.permissions || '[]'))
+        isAddDynamicMenuRoutes = true
+        return next(Object.assign({}, to, {replace: true}))
+      })
     })
   }
 })
